@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="130" height="20" tilewidth="32" tileheight="32" nextobjectid="74">
+ <tileset firstgid="1" name="vectorMap" tilewidth="32" tileheight="32">
+  <image source="img/TilesMap/vector/vectorMap.png" width="2480" height="3508"/>
+ </tileset>
+ <objectgroup name="ObjectLayer">
+  <object id="5" name="TerraCol" x="4.03243" y="560.457" width="765" height="79" rotation="-0.0687983"/>
+ </objectgroup>
+</map>
