@@ -1,7 +1,7 @@
 # ignore folders
 obj/ 
 bin/
-obj/
+x64/
 # ignore files
 Doorf.cbp
 Doorf.depend
@@ -19,3 +19,4 @@ sfml-system-2.dll
 sfml-system-d-2.dll
 sfml-window-2.dll
 sfml-window-d-2.dll
+sfml-graphics-2.dll
