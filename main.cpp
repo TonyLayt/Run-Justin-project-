@@ -7,7 +7,7 @@
 bool firstEnemy = true;
 bool secondEnemy = false;
 
-void permissionToRespawnOneEnemy(int checkNumbPlatform, int nambPlatform, int randPointSpavn) // разрешение на респ зомби 
+void permissionToRespawnOneEnemy(int checkNumbPlatform, int nambPlatform, int randPointSpavn) // разрешение на респ зомби
 {
     if (checkNumbPlatform == nambPlatform)
     {
@@ -18,7 +18,8 @@ void permissionToRespawnOneEnemy(int checkNumbPlatform, int nambPlatform, int ra
         firstEnemy = true;
     }
 }
-void permissionToRespawnSecondEnemy(int checkNumbPlatform, int nambPlatform, int randPointSpavn) // разрешение на респ зомби 
+
+void permissionToRespawnSecondEnemy(int checkNumbPlatform, int nambPlatform, int randPointSpavn) // разрешение на респ зомби
 {
     if (checkNumbPlatform == nambPlatform)
     {
@@ -35,6 +36,7 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(960, 640), "Noname Game");
     window.setFramerateLimit(60);
+    sf::Clock clock;
 
     Level level;
     level.LoadFromFile("MyMapp.tmx");
@@ -42,7 +44,9 @@ int main()
 
     mapObject texturOnObject(objectForMap); // object for texture
 
-    ProcessingSpawnObject createDecoreObjects;
+    ProcessingSpawnObject createDecoreObjects_1;
+    ProcessingSpawnObject createDecoreObjects_2;
+    ProcessingSpawnObject createDecoreObjects_3;
 
     Player player(90, 450, objectForMap);
 
@@ -58,10 +62,13 @@ int main()
     while (window.isOpen())
     {
 
-        
         texturOnObject.processingMap();
         std::cout << "RANDOMAZER: " << texturOnObject.randPointSpavn << std::endl;
-       
+
+        createDecoreObjects_1.respDecore (objectForMap[1].rect.left, objectForMap[1].rect.top); // This is a respawn decore point
+        createDecoreObjects_2.respDecore (objectForMap[0].rect.left, objectForMap[0].rect.top);
+        createDecoreObjects_3.respDecore (objectForMap[2].rect.left, objectForMap[2].rect.top);
+
         permissionToRespawnOneEnemy(texturOnObject.numbPlatform, 1, texturOnObject.randPointSpavn);
         permissionToRespawnSecondEnemy(texturOnObject.numbPlatform, 2, texturOnObject.randPointSpavn);
 
@@ -73,8 +80,8 @@ int main()
         {
             entity[1].enemySpawn(objectForMap[2].rect.left, objectForMap[2].rect.top - objectForMap[2].rect.height - 30); // попробуй флагами определить направления
         }
-            
-        
+
+
         player.update();
         sf::Event event;
         player.runAnimation = true;
@@ -83,7 +90,7 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
             //player.runAnimation = true;
@@ -107,8 +114,11 @@ int main()
             }
         } else { player.jumpAnimation = false; }
 
+
         window.clear();
-        createDecoreObjects.DrawDecore(window, objectForMap[1].rect.left, objectForMap[1].rect.top); // set point
+        createDecoreObjects_1.DrawDecore(window); // set point
+        createDecoreObjects_2.DrawDecore(window);
+        createDecoreObjects_3.DrawDecore(window);
         level.Draw(window);
         texturOnObject.showObject(window);
         player.playerDraw(window);
@@ -118,7 +128,7 @@ int main()
             for (int item = 0; item < entity.size(); item++)
             {
                 entity[item].enemyDraw(window);
-            }            
+            }
         }
         else {std::cout << "!Empty!" << std::endl;}
 
