@@ -23,7 +23,7 @@ void Enemy::enemySpawn(int platformX, int platformY) // утановить точку для обек
 	enemyY = platformY;
 
 	std::cout << "ForX " << platformX << std::endl;
-	
+
 	std::cout << "ForEnemyX " << enemyX << std::endl;
 
 	enemyX -= movSpeed;
@@ -49,16 +49,25 @@ void Enemy::enemySpawn(int platformX, int platformY) // утановить точку для обек
 	{
 		enemySprite.setTextureRect(sf::IntRect(5, 5, 280, 370));
 		movSpeed--;
-	} 
+	}
 	else { checkIF = true; }
 
-	enemyRect = sf::FloatRect(enemyX + 400, enemyY, 50, 110);
+	enemyRect = sf::FloatRect(enemyX + 420, enemyY + 20, 50, 75);
 }
 
 
 void Enemy::enemyDraw(sf::RenderWindow& window)
 {
-    enemySprite.setPosition(enemyRect.left, enemyRect.top);
+    enemySprite.setPosition(enemyX + 400, enemyY);
     window.draw(enemySprite);
     //std::cout << "XUUUUU" << std::endl;
+
+
+    rectShape.setPosition(enemyRect.left, enemyRect.top);
+	rectShape.setSize(sf::Vector2f(enemyRect.width, enemyRect.height));
+	rectShape.setFillColor(sf::Color::Transparent); // Прозрачный фон
+	rectShape.setOutlineThickness(2); // Толщина границы
+	rectShape.setOutlineColor(sf::Color::Blue); // Цвет границы
+
+	window.draw(rectShape);
 }

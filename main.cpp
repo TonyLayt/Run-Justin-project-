@@ -3,6 +3,8 @@
 #include "Enemy.h"
 #include "TestLoadTitleMap.h"
 #include "SpritsDecor.h"
+#include "backGround .h"
+
 
 bool firstEnemy = true;
 bool secondEnemy = false;
@@ -38,6 +40,7 @@ int main()
     window.setFramerateLimit(60);
     sf::Clock clock;
 
+    backGround BG;
     Level level;
     level.LoadFromFile("MyMapp.tmx");
     std::vector<Object>& objectForMap = level.GetAllObjects();
@@ -48,7 +51,7 @@ int main()
     ProcessingSpawnObject createDecoreObjects_2;
     ProcessingSpawnObject createDecoreObjects_3;
 
-    Player player(90, 450, objectForMap);
+    //Player player(90, 450, objectForMap, entity);
 
     Enemy zombie;
     std::vector<Enemy> entity;
@@ -56,6 +59,9 @@ int main()
     {
         entity.push_back(zombie);
     }
+
+    Player player(90, 450, objectForMap, entity);
+
 
     bool chekAnimatioMuve = false;
 
@@ -116,6 +122,7 @@ int main()
 
 
         window.clear();
+        BG.DrawBG(window);
         createDecoreObjects_1.DrawDecore(window); // set point
         createDecoreObjects_2.DrawDecore(window);
         createDecoreObjects_3.DrawDecore(window);

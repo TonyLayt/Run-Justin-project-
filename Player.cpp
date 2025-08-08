@@ -2,7 +2,7 @@
 #include "Player.h"
 
 
-Player::Player(float setPosX, float setPosY, std::vector<Object>& objs) : objs(objs) {
+Player::Player(float setPosX, float setPosY, std::vector<Object>& objs, std::vector<Enemy>& enemy) : objs(objs), enemy(enemy){
 	view.reset(sf::FloatRect(0, 0, 960, 640));
 
 	for (int countFrame = 0; countFrame < 9; ++countFrame) {
@@ -126,6 +126,16 @@ void Player::collision(bool dir)
 
 		}
 
+		for (int countEnemy = 0; countEnemy < enemy.size(); countEnemy++){
+
+                if (playerRect.intersects(sf::FloatRect(enemy[countEnemy].enemyRect))) {
+
+                    std::cout << "WAAAAAAAAAAAAAAAA!" << std::endl;
+                }
+
+
+		}
+
 	}
 }
 
@@ -140,7 +150,8 @@ int Player::playerDraw(sf::RenderWindow& window) {
 	rectShape.setOutlineThickness(2); // Толщина границы
 	rectShape.setOutlineColor(sf::Color::Red); // Цвет границы
 
-	//window.draw(rectShape);
+	window.draw(rectShape);
+
 	window.draw(plySprite);
 	window.setView(view);
 

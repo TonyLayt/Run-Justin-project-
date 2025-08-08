@@ -11,6 +11,7 @@ public:
 
 	void enemySpawn(int x, int y);
 	void enemyDraw(sf::RenderWindow& window);
+    sf::FloatRect enemyRect;
 
 private:
 	int enemyX = enemyX;
@@ -22,8 +23,10 @@ private:
 	float currentFrame = 0;
 	float speedFrame = 0.1;
 
-	sf::FloatRect enemyRect;
 	sf::Sprite enemySprite;
 	std::vector<sf::Texture> texture;
+
+	sf::RectangleShape rectShape;
+
 
 };

@@ -34,7 +34,8 @@ private:
     int randSpawnFirst = 0;
     int randSpawnSecond = 0;
 
+
 	vector <ObjectDecor> objectDecors;
-    Texture addTexture[4];
+    Texture addTexture[7];
     vector <Texture> texture;
 };

@@ -6,6 +6,7 @@
 #include "camera.h"
 
 #include "mapObject.h"
+#include "Enemy.h"
 
 class Player {
 
@@ -24,9 +25,11 @@ public:
 
     sf::Sprite plySprite;
     sf::FloatRect playerRect;
-	sf::RectangleShape rectShape;
 
-	Player(float setPosX, float setPosY, std::vector<Object>& objs);
+	sf::RectangleShape rectShape;
+	sf::RectangleShape rectShapeEnemy;
+
+	Player(float setPosX, float setPosY, std::vector<Object>& objs, std::vector<Enemy>& enemy);
 	void update();
 	void collision(bool dir);
 	int playerDraw(sf::RenderWindow& window);
@@ -37,6 +40,7 @@ private:
 	std::vector<sf::Texture> jumpFrames;
 	std::vector<Properti> templMap;
 	std::vector<Object>& objs;
+	std::vector<Enemy>& enemy;
 
 	float currentFrame = 0;
 	float speedFrame = 0.1f;
