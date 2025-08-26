@@ -2,6 +2,7 @@
 obj/ 
 bin/
 obj/
+x64/
 # ignore files
 Doorf.cbp
 Doorf.depend
