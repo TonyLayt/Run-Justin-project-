@@ -39,9 +39,6 @@ void mapObject::processingMap()
             randPointSpavn = rand() % (3 - 1 + 1) + 1;
             numbPlatform = itemCount;
             conteinerObjct[itemCount].rect.left = 1800; //1500
-
-            //conteinerObjct.erase(conteinerObjct.begin() + itemCount);
-            //prop.erase(prop.begin() + itemCount);
          }
 
     }

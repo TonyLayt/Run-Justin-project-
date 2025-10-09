@@ -155,6 +155,8 @@ int Player::playerDraw(sf::RenderWindow& window) {
 	window.draw(plySprite);
 	window.setView(view);
 
+    std::cout << "PLAYERDRAW" << std::endl;
+
 	return 0;
 }
 
