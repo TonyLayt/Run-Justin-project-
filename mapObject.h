@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include "TestLoadTitleMap.h"
+#include "Player.h"
+
 
 struct Properti
 {
@@ -18,7 +20,7 @@ class mapObject
 	public:
 		mapObject(std::vector <Object>& conteinerObjct); // иннициализация
 
-		void processingMap();
+		void processingMap(Player& upAnimationSpeed);
 		void showObject(sf::RenderWindow& window); // берем готовый обект
 		std::vector<Properti>& getSpriteForObject();
 
@@ -26,6 +28,9 @@ class mapObject
 		int numbPlatform;
 
 	private:
+		sf::Clock gameClock;
+		int speed = 5;
+		int timeLimit = 20;
 	    //int coun = 1;
 		Properti PropertiMapTitle;
 		sf::Texture texture;

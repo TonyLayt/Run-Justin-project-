@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
+using namespace std;
 
 class backGround
 {
@@ -11,13 +12,17 @@ class backGround
         backGround ();
 
         void DrawBG (sf::RenderWindow& window);
+        void speedBG(int speed);
 
 
     protected:
 
     private:
-        Sprite sprite;
-        Texture texture;
+        int speed = 0;
+        bool checkMovement = true;
+        RectangleShape forTestSprite;
+        Texture texture[7];
+        vector <Sprite> segments;
 };
 
 

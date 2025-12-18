@@ -12,7 +12,7 @@ sf::View playecCordFORView(float x, float y)
 	//if (x < 380) tempX = 380;
 	//if (x > 1150) tempX = 1150;
 
-	view.setCenter(tempX+350, tempY);
+	//view.setCenter(tempX+350, tempY);
 
 	return sf::View();
 }

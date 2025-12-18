@@ -5,7 +5,7 @@
 #include "TestLoadTitleMap.h"
 #include "camera.h"
 
-#include "mapObject.h"
+//#include "mapObject.h"
 #include "Enemy.h"
 
 class Player {
@@ -18,6 +18,7 @@ public:
 	float goY;
 	float BoxPosX;
 	float BoxPosY;
+	
 
 	bool inactivitAnimation = true;
 	bool runAnimation;
@@ -30,20 +31,21 @@ public:
 	sf::RectangleShape rectShapeEnemy;
 
 	Player(float setPosX, float setPosY, std::vector<Object>& objs, std::vector<Enemy>& enemy);
+	void SetAnimationSpeed(float newSpeed);
 	void update();
 	void collision(bool dir);
+	bool getCheckGemeOverEvents();
 	int playerDraw(sf::RenderWindow& window);
 
 private:
 	std::vector<sf::Texture> inactivitFrames;
 	std::vector<sf::Texture> runFrames;
 	std::vector<sf::Texture> jumpFrames;
-	std::vector<Properti> templMap;
+	//std::vector<Properti> templMap;
 	std::vector<Object>& objs;
 	std::vector<Enemy>& enemy;
-
+	bool GemeOverEvents = true;
 	float currentFrame = 0;
 	float speedFrame = 0.1f;
-
 	const float gravity = 0;
 };

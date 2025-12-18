@@ -31,7 +31,12 @@ Player::Player(float setPosX, float setPosY, std::vector<Object>& objs, std::vec
 	plySprite.setScale(0.3f, 0.3f);
 	plySprite.setTexture(inactivitFrames[0]);
 	plySprite.setOrigin(plySprite.getLocalBounds().width / 2, plySprite.getLocalBounds().height / 2);
+}
+void Player::SetAnimationSpeed(float newSpeed)
+{
+	speedFrame += newSpeed;
 };
+
 
 void Player::update()
 {
@@ -91,12 +96,22 @@ void Player::update()
 	goX = 0;
 }
 
+bool Player::getCheckGemeOverEvents()
+{
+	return GemeOverEvents;
+}
+
 void Player::collision(bool dir)
 {
 	bool touchGround = false;
 
 	for (int countObject = 0; countObject < objs.size(); countObject++)
 	{
+		if (playerRect.top > objs[countObject].rect.top)
+		{
+			GemeOverEvents = false;
+			std::cout << "DOOOWN" << std::endl;
+		}
 		if (playerRect.intersects(sf::FloatRect(objs[countObject].rect)))
 		{
 			if (objs[countObject].name == "TerraCol")
@@ -154,6 +169,8 @@ int Player::playerDraw(sf::RenderWindow& window) {
 
 	window.draw(plySprite);
 	window.setView(view);
+
+    std::cout << "PLAYERDRAW" << std::endl;
 
 	return 0;
 }
