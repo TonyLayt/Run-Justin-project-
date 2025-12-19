@@ -12,7 +12,7 @@ class backGround
         backGround ();
 
         void DrawBG (sf::RenderWindow& window);
-        void speedBG(int speed);
+        void speedBG(float speed);
 
 
     protected:

@@ -6,11 +6,11 @@
 #include "TestLoadTitleMap.h"
 #include "SpritsDecor.h"
 #include "backGround .h"
-
-
+#include <filesystem>
 
 bool firstEnemy = true;
 bool secondEnemy = false;
+float valSpeedBG = 5.00f;
 
 void permissionToRespawnOneEnemy(int checkNumbPlatform, int nambPlatform, int randPointSpavn) // разрешение на респ зомби
 {
@@ -36,9 +36,21 @@ void permissionToRespawnSecondEnemy(int checkNumbPlatform, int nambPlatform, int
     }
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-    enum Screen {
+    // jast this is need for normal start :D
+    std::filesystem::path exePath = std::filesystem::absolute(argv[0]);
+    std::filesystem::path exeDir = exePath.parent_path();
+
+    std::filesystem::current_path(exeDir);
+
+    std::cout << "CWD fixed to: " << std::filesystem::current_path() << std::endl;
+
+    std::cout << "CWD: " << std::filesystem::current_path() << std::endl;
+    // jast this is need for normal start :D
+
+    enum Screen
+    {
         TitleMain,
         Game
     };
@@ -54,7 +66,7 @@ int main()
     backGround BG;
     Level level;
     level.LoadFromFile("MyMapp.tmx");
-    std::vector<Object>& objectForMap = level.GetAllObjects();
+    std::vector<Object> &objectForMap = level.GetAllObjects();
 
     mapObject texturOnObject(objectForMap); // object for texture
 
@@ -62,23 +74,23 @@ int main()
     ProcessingSpawnObject createDecoreObjects_2;
     ProcessingSpawnObject createDecoreObjects_3;
 
-    //Player player(90, 450, objectForMap, entity);
+    // Player player(90, 450, objectForMap, entity);
 
     Enemy zombie;
     std::vector<Enemy> entity;
-    for(int enemyNamb = 0; enemyNamb < 2; enemyNamb++)
+    for (int enemyNamb = 0; enemyNamb < 2; enemyNamb++)
     {
         entity.push_back(zombie);
     }
 
     Player player(90, 450, objectForMap, entity);
 
-
     bool chekAnimatioMuve = false;
 
     while (window.isOpen())
     {
-        if (current == Screen::TitleMain) {
+        if (current == Screen::TitleMain)
+        {
 
             while (window.pollEvent(event))
             {
@@ -87,32 +99,32 @@ int main()
             }
 
             if (event.type == sf::Event::MouseButtonPressed &&
-                event.mouseButton.button == sf::Mouse::Left) {
-              
-				sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+                event.mouseButton.button == sf::Mouse::Left)
+            {
 
-                if (mainScreen.GetStartButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+                sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+
+                if (mainScreen.GetStartButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
+                {
                     std::cout << "PREEEEESSSS! ";
                     current = Screen::Game;
                 }
-                                    
-           
             }
 
             window.clear();
             mainScreen.DrawTitle(window);
             window.display();
-
         }
 
-        else if (current == Screen::Game) {
+        else if (current == Screen::Game)
+        {
 
             texturOnObject.processingMap(player);
             std::cout << "RANDOMAZER: " << texturOnObject.randPointSpavn << std::endl;
 
-            createDecoreObjects_1.respDecore (objectForMap[1].rect.left, objectForMap[1].rect.top); // This is a respawn decore point
-            createDecoreObjects_2.respDecore (objectForMap[0].rect.left, objectForMap[0].rect.top);
-            createDecoreObjects_3.respDecore (objectForMap[2].rect.left, objectForMap[2].rect.top);
+            createDecoreObjects_1.respDecore(objectForMap[1].rect.left, objectForMap[1].rect.top); // This is a respawn decore point
+            createDecoreObjects_2.respDecore(objectForMap[0].rect.left, objectForMap[0].rect.top);
+            createDecoreObjects_3.respDecore(objectForMap[2].rect.left, objectForMap[2].rect.top);
 
             permissionToRespawnOneEnemy(texturOnObject.numbPlatform, 1, texturOnObject.randPointSpavn);
             permissionToRespawnSecondEnemy(texturOnObject.numbPlatform, 2, texturOnObject.randPointSpavn);
@@ -125,9 +137,13 @@ int main()
             {
                 entity[1].enemySpawn(objectForMap[2].rect.left, objectForMap[2].rect.top - objectForMap[2].rect.height - 30); // попробуй флагами определить направления
             }
-            if (player.getCheckGemeOverEvents()) {
-                BG.speedBG(-5);
+
+            if (!player.getCheckGemeOverEvents())
+            {
+                valSpeedBG = 0;
             }
+
+            BG.speedBG(valSpeedBG);
             player.update();
             player.runAnimation = true;
             while (window.pollEvent(event))
@@ -138,17 +154,20 @@ int main()
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
             {
-                //player.runAnimation = true;
+                // player.runAnimation = true;
                 player.goX += 10;
             }
 
             else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
             {
-                //player.runAnimation = true;
+                // player.runAnimation = true;
                 player.goX -= 10;
-
-            }else {player.runAnimation = true; chekAnimatioMuve = true;} // false, false
-
+            }
+            else
+            {
+                player.runAnimation = true;
+                chekAnimatioMuve = true;
+            } // false, false
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
             {
@@ -157,8 +176,11 @@ int main()
                     player.jumpAnimation = true;
                     player.goY -= 10;
                 }
-            } else { player.jumpAnimation = false; }
-
+            }
+            else
+            {
+                player.jumpAnimation = false;
+            }
 
             window.clear();
             BG.DrawBG(window);
@@ -176,11 +198,13 @@ int main()
                     entity[item].enemyDraw(window);
                 }
             }
-            else {std::cout << "!Empty!" << std::endl;}
+            else
+            {
+                std::cout << "!Empty!" << std::endl;
+            }
 
             window.display();
         }
-
     }
 
     return 0;
