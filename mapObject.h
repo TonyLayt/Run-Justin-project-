@@ -20,7 +20,7 @@ class mapObject
 	public:
 		mapObject(std::vector <Object>& conteinerObjct); // иннициализация
 
-		void processingMap(Player& upAnimationSpeed);
+		void processingMap(Player& upAnimationSpeed, float& vailSpeedBG);
 		void showObject(sf::RenderWindow& window); // берем готовый обект
 		std::vector<Properti>& getSpriteForObject();
 
@@ -29,6 +29,7 @@ class mapObject
 
 	private:
 		sf::Clock gameClock;
+		bool checkOpenProcessingMap = true;
 		int speed = 5;
 		int timeLimit = 20;
 	    //int coun = 1;

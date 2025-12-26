@@ -1,7 +1,6 @@
 #include "mapObject.h"
 
-
-mapObject::mapObject(std::vector <Object>& conteinerObjct) : conteinerObjct(conteinerObjct)
+mapObject::mapObject(std::vector<Object> &conteinerObjct) : conteinerObjct(conteinerObjct)
 {
 
     texture.loadFromFile("img/Tiles/spriteGround.png");
@@ -26,23 +25,31 @@ mapObject::mapObject(std::vector <Object>& conteinerObjct) : conteinerObjct(cont
     }
 };
 
-void mapObject::processingMap(Player& upAnimationSpeed)
+void mapObject::processingMap(Player &upAnimationSpeed, float &vailSpeedBG)
 {
-    sf::Time elapsed = gameClock.getElapsedTime();  // сколько прошло с момента запуска
-    float seconds = elapsed.asSeconds();            // в секундах (float)
+    if (checkOpenProcessingMap)
+    {
+        gameClock.restart();
+        checkOpenProcessingMap = false;
+    }
+
+    sf::Time elapsed = gameClock.getElapsedTime(); // сколько прошло с момента запуска
+    float seconds = elapsed.asSeconds();           // в секундах (float)
     std::cout << "TIME_" << seconds << std::endl;
 
-    if (seconds > timeLimit) {
+    if (seconds > timeLimit)
+    {
         speed += 1;
+        vailSpeedBG += 9.80f;
         timeLimit += 20;
         upAnimationSpeed.SetAnimationSpeed(0.01f);
         std::cout << "XYYSYSYSYSYS_ " << seconds << std::endl;
     }
 
-
     for (int itemCount = 0; itemCount < conteinerObjct.size(); itemCount++)
     {
-        if (upAnimationSpeed.getCheckGemeOverEvents()) {
+        if (upAnimationSpeed.getCheckGemeOverEvents())
+        {
             conteinerObjct[itemCount].rect.left -= speed;
             prop[itemCount].spritObject.setPosition(conteinerObjct[itemCount].rect.left, conteinerObjct[itemCount].rect.top);
 
@@ -50,26 +57,21 @@ void mapObject::processingMap(Player& upAnimationSpeed)
             {
                 randPointSpavn = rand() % (3 - 1 + 1) + 1;
                 numbPlatform = itemCount;
-                conteinerObjct[itemCount].rect.left = 1800; //1500
+                conteinerObjct[itemCount].rect.left = 1800; // 1500
             }
         }
-
     }
-
 }
 
-void mapObject::showObject(sf::RenderWindow& window)
+void mapObject::showObject(sf::RenderWindow &window)
 {
-	for (auto& item : prop)
-	{
-		window.draw(item.spritObject);
-	}
+    for (auto &item : prop)
+    {
+        window.draw(item.spritObject);
+    }
 }
 
-std::vector<Properti>& mapObject::getSpriteForObject()
+std::vector<Properti> &mapObject::getSpriteForObject()
 {
-	return prop;
+    return prop;
 }
-
-
-

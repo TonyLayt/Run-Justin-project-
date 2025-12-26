@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
         else if (current == Screen::Game)
         {
 
-            texturOnObject.processingMap(player);
+            texturOnObject.processingMap(player, valSpeedBG);
             std::cout << "RANDOMAZER: " << texturOnObject.randPointSpavn << std::endl;
 
             createDecoreObjects_1.respDecore(objectForMap[1].rect.left, objectForMap[1].rect.top); // This is a respawn decore point

@@ -38,30 +38,50 @@ backGround ::backGround()
 
 void backGround::speedBG(float speed)
 {
-        segments[1].move(-speed, 0); // 4
-        segments[2].move(-speed, 0);
+        if (speed)
+        {
 
-        segments[3].move(-speed, 0); // 3
-        segments[4].move(-speed, 0);
+                // segments[1].move(-speed + 4, 0); // 4
+                // segments[2].move(-speed + 4, 0);
 
-        segments[5].move(-speed, 0); // 1
-        segments[6].move(-speed, 0);
+                // segments[3].move(-speed + 3, 0); // 3
+                // segments[4].move(-speed + 3, 0);
+
+                segments[5].move(-speed + 1, 0); // 1
+                segments[6].move(-speed + 1, 0);
+        }
+
+        // if (segments[5].getPosition().x + segments[5].getGlobalBounds().width < -50 && checkMovement)
+        // {
+
+        //         cout << "<00000<" << endl;
+        //         segments[5].setPosition(segments[6].getGlobalBounds().width - 55, 0);
+        //         checkMovement = false;
+        // }
+        // if (segments[6].getPosition().x + segments[6].getGlobalBounds().width < -50 && checkMovement)
+        // {
+
+        //         cout << "<00000<" << endl;
+        //         segments[6].setPosition(segments[5].getGlobalBounds().width - 55, 0);
+        //         checkMovement = false;
+        // }
 
         if (segments[5].getPosition().x + segments[5].getGlobalBounds().width < -50 && checkMovement)
         {
-
-                cout << "<00000<" << endl;
-                segments[5].setPosition(segments[6].getGlobalBounds().width - 55, 0);
+                cout << "Segment 5 moved" << endl;
+                // Ставим сегмент 5 СПРАВА от сегмента 6
+                segments[5].setPosition(segments[6].getPosition().x + segments[6].getGlobalBounds().width - 55, 0);
                 checkMovement = false;
         }
         if (segments[6].getPosition().x + segments[6].getGlobalBounds().width < -50 && checkMovement)
         {
-
-                cout << "<00000<" << endl;
-                segments[6].setPosition(segments[5].getGlobalBounds().width - 55, 0);
+                cout << "Segment 6 moved" << endl;
+                // Ставим сегмент 6 СПРАВА от сегмента 5
+                segments[6].setPosition(segments[5].getPosition().x + segments[5].getGlobalBounds().width - 55, 0);
                 checkMovement = false;
         }
 
+        
         if (segments[3].getPosition().x + segments[3].getGlobalBounds().width < -50 && checkMovement)
         {
 
