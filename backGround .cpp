@@ -15,8 +15,7 @@ backGround ::backGround()
         texture[0].loadFromFile(image[0]);
         Sprite sprite;
         sprite.setTexture(texture[0]);
-        sprite.scale(0.52f, 0.56f);
-        sprite.setPosition(-50, 0);
+        sprite.scale(0.39f, 0.39f);
         segments.push_back(sprite);
         //    mainBackgraund
 
@@ -41,43 +40,28 @@ void backGround::speedBG(float speed)
         if (speed)
         {
 
-                // segments[1].move(-speed + 4, 0); // 4
-                // segments[2].move(-speed + 4, 0);
+                segments[1].move(-speed + 4, 0); // 4
+                segments[2].move(-speed + 4, 0);
 
-                // segments[3].move(-speed + 3, 0); // 3
-                // segments[4].move(-speed + 3, 0);
+                segments[3].move(-speed + 3, 0); // 3
+                segments[4].move(-speed + 3, 0);
 
                 segments[5].move(-speed + 1, 0); // 1
                 segments[6].move(-speed + 1, 0);
         }
 
-        // if (segments[5].getPosition().x + segments[5].getGlobalBounds().width < -50 && checkMovement)
-        // {
-
-        //         cout << "<00000<" << endl;
-        //         segments[5].setPosition(segments[6].getGlobalBounds().width - 55, 0);
-        //         checkMovement = false;
-        // }
-        // if (segments[6].getPosition().x + segments[6].getGlobalBounds().width < -50 && checkMovement)
-        // {
-
-        //         cout << "<00000<" << endl;
-        //         segments[6].setPosition(segments[5].getGlobalBounds().width - 55, 0);
-        //         checkMovement = false;
-        // }
-
         if (segments[5].getPosition().x + segments[5].getGlobalBounds().width < -50 && checkMovement)
         {
                 cout << "Segment 5 moved" << endl;
                 // Ставим сегмент 5 СПРАВА от сегмента 6
-                segments[5].setPosition(segments[6].getPosition().x + segments[6].getGlobalBounds().width - 55, 0);
+                segments[5].setPosition(segments[6].getPosition().x + segments[6].getGlobalBounds().width, 0);
                 checkMovement = false;
         }
         if (segments[6].getPosition().x + segments[6].getGlobalBounds().width < -50 && checkMovement)
         {
                 cout << "Segment 6 moved" << endl;
                 // Ставим сегмент 6 СПРАВА от сегмента 5
-                segments[6].setPosition(segments[5].getPosition().x + segments[5].getGlobalBounds().width - 55, 0);
+                segments[6].setPosition(segments[5].getPosition().x + segments[5].getGlobalBounds().width, 0);
                 checkMovement = false;
         }
 
@@ -86,14 +70,14 @@ void backGround::speedBG(float speed)
         {
 
                 cout << "<00000<" << endl;
-                segments[3].setPosition(segments[4].getGlobalBounds().width - 55, 0);
+                segments[3].setPosition(segments[4].getPosition().x + segments[4].getGlobalBounds().width, 0);
                 checkMovement = false;
         }
         if (segments[4].getPosition().x + segments[4].getGlobalBounds().width < -50 && checkMovement)
         {
 
                 cout << "<00000<" << endl;
-                segments[4].setPosition(segments[3].getGlobalBounds().width - 55, 0);
+                segments[4].setPosition(segments[3].getPosition().x + segments[3].getGlobalBounds().width, 0);
                 checkMovement = false;
         }
 
@@ -101,14 +85,14 @@ void backGround::speedBG(float speed)
         {
 
                 cout << "<00000<" << endl;
-                segments[1].setPosition(segments[2].getGlobalBounds().width - 55, 0);
+                segments[1].setPosition(segments[2].getPosition().x + segments[2].getGlobalBounds().width, 0);
                 checkMovement = false;
         }
         if (segments[2].getPosition().x + segments[2].getGlobalBounds().width < -50 && checkMovement)
         {
 
                 cout << "<00000<" << endl;
-                segments[2].setPosition(segments[1].getGlobalBounds().width - 55, 0);
+                segments[2].setPosition(segments[1].getPosition().x + segments[1].getGlobalBounds().width, 0);
                 checkMovement = false;
         }
 

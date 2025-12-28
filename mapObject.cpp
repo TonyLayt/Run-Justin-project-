@@ -40,7 +40,7 @@ void mapObject::processingMap(Player &upAnimationSpeed, float &vailSpeedBG)
     if (seconds > timeLimit)
     {
         speed += 1;
-        vailSpeedBG += 9.80f;
+        vailSpeedBG += 0.80f;
         timeLimit += 20;
         upAnimationSpeed.SetAnimationSpeed(0.01f);
         std::cout << "XYYSYSYSYSYS_ " << seconds << std::endl;
