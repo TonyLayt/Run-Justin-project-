@@ -13,7 +13,6 @@ bool firstEnemy = true;
 bool secondEnemy = false;
 float valSpeedBG = 5.00f;
 
-
 void permissionToRespawnOneEnemy(int checkNumbPlatform, int nambPlatform, int randPointSpavn) // разрешение на респ зомби
 {
     if (checkNumbPlatform == nambPlatform)
@@ -41,14 +40,14 @@ void permissionToRespawnSecondEnemy(int checkNumbPlatform, int nambPlatform, int
 int main(int argc, char *argv[])
 {
     // jast this is need for normal start :D
-    /*std::filesystem::path exePath = std::filesystem::absolute(argv[0]);
+    std::filesystem::path exePath = std::filesystem::absolute(argv[0]);
     std::filesystem::path exeDir = exePath.parent_path();
 
     std::filesystem::current_path(exeDir);
 
     std::cout << "CWD fixed to: " << std::filesystem::current_path() << std::endl;
 
-    std::cout << "CWD: " << std::filesystem::current_path() << std::endl;*/
+    std::cout << "CWD: " << std::filesystem::current_path() << std::endl;
     // jast this is need for normal start  :D
 
     enum Screen
@@ -152,6 +151,13 @@ int main(int argc, char *argv[])
             {
                 if (event.type == sf::Event::Closed)
                     window.close();
+            }
+
+            if (event.type == sf::Event::MouseButtonPressed &&
+                event.mouseButton.button == sf::Mouse::Left)
+            {
+
+               
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
