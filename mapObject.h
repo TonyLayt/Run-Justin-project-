@@ -3,6 +3,7 @@
 #include <iostream>
 #include "TestLoadTitleMap.h"
 #include "Player.h"
+#include "Enemy.h"
 
 
 struct Properti
@@ -18,7 +19,7 @@ private:
 class mapObject
 {
 	public:
-		mapObject(std::vector <Object>& conteinerObjct); // иннициализация
+		mapObject(std::vector <Object>& conteinerObjct, std::vector<Enemy>& enemy); // иннициализация
 
 		void processingMap(Player& upAnimationSpeed, float& vailSpeedBG);
 		void showObject(sf::RenderWindow& window); // берем готовый обект
@@ -38,4 +39,5 @@ class mapObject
 		//std::vector <sf::Texture> packTexturex;
 		std::vector<Properti> prop;
 		std::vector<Object>& conteinerObjct;
+		std::vector<Enemy>& enemy;
 };

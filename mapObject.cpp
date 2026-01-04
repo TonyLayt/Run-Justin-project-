@@ -1,6 +1,6 @@
 #include "mapObject.h"
 
-mapObject::mapObject(std::vector<Object> &conteinerObjct) : conteinerObjct(conteinerObjct)
+mapObject::mapObject(std::vector<Object> &conteinerObjct, std::vector<Enemy>& enemy) : conteinerObjct(conteinerObjct), enemy(enemy)
 {
 
     texture.loadFromFile("img/Tiles/spriteGround.png");
@@ -58,6 +58,13 @@ void mapObject::processingMap(Player &upAnimationSpeed, float &vailSpeedBG)
                 randPointSpavn = rand() % (3 - 1 + 1) + 1;
                 numbPlatform = itemCount;
                 conteinerObjct[itemCount].rect.left = 1800; // 1500
+
+                if (conteinerObjct[itemCount].rect.left + conteinerObjct[itemCount].rect.width < 0) {
+                    enemy[0].reset(false);
+                    enemy[1].reset(false);
+                }
+             
+                
             }
         }
     }

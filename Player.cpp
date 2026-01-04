@@ -101,6 +101,28 @@ bool Player::getCheckGemeOverEvents()
 	return GemeOverEvents;
 }
 
+
+void Player::performAttack()
+{
+	checkCollisionWithEnemy = true;
+	rectAttacjShape.setPosition(playerRect.left + 30, playerRect.top);
+	rectAttacjShape.setSize(sf::Vector2f(playerRect.width, playerRect.height));
+	rectAttacjShape.setFillColor(sf::Color::Transparent); // Прозрачный фон
+	rectAttacjShape.setOutlineThickness(2); // Толщина границы
+	rectAttacjShape.setOutlineColor(sf::Color::Yellow); // Цвет границы
+
+	knifeRect = sf::FloatRect(playerRect.left + 30, playerRect.top, playerRect.width, playerRect.height);
+
+	for (int countEnemy = 0; countEnemy < enemy.size(); countEnemy++) {
+
+		if (knifeRect.intersects(sf::FloatRect(enemy[countEnemy].enemyRect))) {
+			enemy[countEnemy].kill(true);
+			
+		}
+	}
+
+}
+
 void Player::collision(bool dir)
 {
 	bool touchGround = false;
@@ -147,11 +169,14 @@ void Player::collision(bool dir)
 
                     std::cout << "WAAAAAAAAAAAAAAAA!" << std::endl;
                 }
-
-
 		}
-
 	}
+	checkCollisionWithEnemy = false;
+}
+
+bool Player::getCheckCollisionWithEnemy()
+{
+	return checkCollisionWithEnemy;
 }
 
 int Player::playerDraw(sf::RenderWindow& window) {
@@ -164,9 +189,10 @@ int Player::playerDraw(sf::RenderWindow& window) {
 	rectShape.setFillColor(sf::Color::Transparent); // Прозрачный фон
 	rectShape.setOutlineThickness(2); // Толщина границы
 	rectShape.setOutlineColor(sf::Color::Red); // Цвет границы
-
+	if (checkCollisionWithEnemy) {
+		window.draw(rectAttacjShape);
+	}
 	window.draw(rectShape);
-
 	window.draw(plySprite);
 	window.setView(view);
 

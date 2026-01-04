@@ -18,6 +18,22 @@ Enemy::Enemy()
 
 }
 
+void Enemy::kill(bool status)
+{
+	if (checkStatusLife == false) {
+		checkStatusLife = status;
+	}
+}
+
+void Enemy::reset(bool status)
+{
+	if (checkStatusLife == true) {
+		checkStatusLife = status;
+	}
+}
+
+
+
 void Enemy::enemySpawn(int platformX, int platformY) // утановить точку для обекта зомби
 {
     enemyX = platformX;
@@ -30,28 +46,31 @@ void Enemy::enemySpawn(int platformX, int platformY) // утановить точку для обек
 	enemyX -= movSpeed;
 
 	// animation
-	if (currentFrame >= texture.size())
-	{
-		currentFrame = 0;
-	}
+	if (!checkStatusLife) {
+		if (currentFrame >= texture.size())
+		{
+			currentFrame = 0;
+		}
 
-	enemySprite.setTexture(texture[currentFrame]);
-	currentFrame += speedFrame;
+		enemySprite.setTexture(texture[currentFrame]);
+		currentFrame += speedFrame;
+		
+	}else { enemySprite.setTexture(texture[0]); }
 	// ________
 
-	if (enemyX + 300 > platformX && checkIF)
+	if (enemyX + 300 > platformX && checkIF && !checkStatusLife)
 	{
 		movSpeed++;
 		enemySprite.setTextureRect(sf::IntRect(280, 5, -280, 370));
 	}
 	else { checkIF = false;}
 
-	if (!checkIF && enemyX + 400 < platformX + 500)
+	if (!checkIF && enemyX + 400 < platformX + 500 && !checkStatusLife)
 	{
 		enemySprite.setTextureRect(sf::IntRect(5, 5, 280, 370));
 		movSpeed--;
 	}
-	else { checkIF = true; }
+	else { checkIF = true;}
 
 	enemyRect = sf::FloatRect(enemyX + 420, enemyY + 20, 50, 75);
 }

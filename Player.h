@@ -27,17 +27,23 @@ public:
     sf::Sprite plySprite;
     sf::FloatRect playerRect;
 
+
 	sf::RectangleShape rectShape;
 	sf::RectangleShape rectShapeEnemy;
+	sf::FloatRect knifeRect;
 
 	Player(float setPosX, float setPosY, std::vector<Object>& objs, std::vector<Enemy>& enemy);
 	void SetAnimationSpeed(float newSpeed);
 	void update();
 	void collision(bool dir);
+	bool getCheckCollisionWithEnemy();
 	bool getCheckGemeOverEvents();
+	void performAttack();
 	int playerDraw(sf::RenderWindow& window);
 
 private:
+	sf::RectangleShape rectAttacjShape;
+
 	std::vector<sf::Texture> inactivitFrames;
 	std::vector<sf::Texture> runFrames;
 	std::vector<sf::Texture> jumpFrames;
@@ -45,6 +51,7 @@ private:
 	std::vector<Object>& objs;
 	std::vector<Enemy>& enemy;
 	bool GemeOverEvents = true;
+	bool checkCollisionWithEnemy = false;
 	float currentFrame = 0;
 	float speedFrame = 0.1f;
 	const float gravity = 0;
