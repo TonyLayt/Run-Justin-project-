@@ -16,8 +16,8 @@ public:
     sf::FloatRect enemyRect;
 
 private:
-	int enemyX = enemyX;
-	int enemyY = enemyY;
+	int enemyX = 0;
+	int enemyY = 0;
 	int movSpeed = 3;
 	bool checkStatusLife = false;
 	bool checkIF = true;

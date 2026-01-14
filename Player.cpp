@@ -1,32 +1,36 @@
 #include <iostream>
 #include "Player.h"
 
-
-Player::Player(float setPosX, float setPosY, std::vector<Object>& objs, std::vector<Enemy>& enemy) : objs(objs), enemy(enemy){
+Player::Player(float setPosX, float setPosY, std::vector<Object> &objs, std::vector<Enemy> &enemy) : objs(objs), enemy(enemy)
+{
 	view.reset(sf::FloatRect(0, 0, 960, 640));
 
-	for (int countFrame = 0; countFrame < 9; ++countFrame) {
+	for (int countFrame = 0; countFrame < 9; ++countFrame)
+	{
 
 		sf::Texture addTextureInactivit;
-		if (!addTextureInactivit.loadFromFile("img/playerSprite/Idle__00" + std::to_string(countFrame) + ".png")) {
+		if (!addTextureInactivit.loadFromFile("img/playerSprite/Idle__00" + std::to_string(countFrame) + ".png"))
+		{
 			std::cout << "Error load texture" << std::endl;
 		}
 		inactivitFrames.push_back(addTextureInactivit);
 
 		sf::Texture addTextureRun;
-		if (!addTextureRun.loadFromFile("img/playerSprite/Run__00" + std::to_string(countFrame) + ".png")) {
+		if (!addTextureRun.loadFromFile("img/playerSprite/Run__00" + std::to_string(countFrame) + ".png"))
+		{
 			std::cout << "Error load texture" << std::endl;
 		}
 		runFrames.push_back(addTextureRun);
 
 		sf::Texture addTextureJump;
-		if (!addTextureJump.loadFromFile("img/playerSprite/Jump__00" + std::to_string(countFrame) + ".png")) {
+		if (!addTextureJump.loadFromFile("img/playerSprite/Jump__00" + std::to_string(countFrame) + ".png"))
+		{
 			std::cout << "Error load texture" << std::endl;
 		}
 		jumpFrames.push_back(addTextureJump);
 	}
 
-	playerRect = sf::FloatRect (setPosX, setPosY, 50, 110);
+	playerRect = sf::FloatRect(setPosX, setPosY, 50, 110);
 
 	plySprite.setScale(0.3f, 0.3f);
 	plySprite.setTexture(inactivitFrames[0]);
@@ -37,7 +41,6 @@ void Player::SetAnimationSpeed(float newSpeed)
 	speedFrame += newSpeed;
 };
 
-
 void Player::update()
 {
 	onGround = false;
@@ -46,7 +49,8 @@ void Player::update()
 	collision(false); // проверка по X
 
 	// гравитация тянет по Y
-	if (!onGround) goY += 0.4f;
+	if (!onGround)
+		goY += 0.4f;
 
 	playerRect.top += goY;
 	collision(true); // проверка по игрику
@@ -60,7 +64,7 @@ void Player::update()
 		}
 		plySprite.setTexture(inactivitFrames[currentFrame]);
 		currentFrame += speedFrame;
-		//std::cout << currentFrame << std::endl;
+		// std::cout << currentFrame << std::endl;
 	}
 
 	// анимация при движении
@@ -82,7 +86,11 @@ void Player::update()
 			plySprite.setTextureRect(sf::IntRect(400, 5, -400, 486));
 		}
 		currentFrame += speedFrame;
-	}else { inactivitAnimation = true; }
+	}
+	else
+	{
+		inactivitAnimation = true;
+	}
 
 	if (jumpAnimation)
 	{
@@ -92,7 +100,11 @@ void Player::update()
 		}
 		plySprite.setTexture(jumpFrames[currentFrame]); // анимация прыжка
 		currentFrame += speedFrame;
-	} else { inactivitAnimation = true; }
+	}
+	else
+	{
+		inactivitAnimation = true;
+	}
 	goX = 0;
 }
 
@@ -101,30 +113,31 @@ bool Player::getCheckGemeOverEvents()
 	return GemeOverEvents;
 }
 
-
 void Player::performAttack()
 {
 	checkCollisionWithEnemy = true;
 	rectAttacjShape.setPosition(playerRect.left + 30, playerRect.top);
 	rectAttacjShape.setSize(sf::Vector2f(playerRect.width, playerRect.height));
 	rectAttacjShape.setFillColor(sf::Color::Transparent); // Прозрачный фон
-	rectAttacjShape.setOutlineThickness(2); // Толщина границы
-	rectAttacjShape.setOutlineColor(sf::Color::Yellow); // Цвет границы
+	rectAttacjShape.setOutlineThickness(2);				  // Толщина границы
+	rectAttacjShape.setOutlineColor(sf::Color::Yellow);	  // Цвет границы
 
 	knifeRect = sf::FloatRect(playerRect.left + 30, playerRect.top, playerRect.width, playerRect.height);
 
-	for (int countEnemy = 0; countEnemy < enemy.size(); countEnemy++) {
+	for (int countEnemy = 0; countEnemy < enemy.size(); countEnemy++)
+	{
 
-		if (knifeRect.intersects(sf::FloatRect(enemy[countEnemy].enemyRect))) {
+		if (knifeRect.intersects(sf::FloatRect(enemy[countEnemy].enemyRect)))
+		{
 			enemy[countEnemy].kill(true);
-			
 		}
 	}
-
 }
 
 void Player::collision(bool dir)
 {
+	std::cout << "PlayerPosX " << playerRect.left << std::endl;
+
 	bool touchGround = false;
 
 	for (int countObject = 0; countObject < objs.size(); countObject++)
@@ -160,15 +173,16 @@ void Player::collision(bool dir)
 					goY = 0;
 				}
 			}
-
 		}
 
-		for (int countEnemy = 0; countEnemy < enemy.size(); countEnemy++){
+		for (int countEnemy = 0; countEnemy < enemy.size(); countEnemy++)
+		{
 
-                if (playerRect.intersects(sf::FloatRect(enemy[countEnemy].enemyRect))) {
+			if (playerRect.intersects(sf::FloatRect(enemy[countEnemy].enemyRect)))
+			{
 
-                    std::cout << "WAAAAAAAAAAAAAAAA!" << std::endl;
-                }
+				std::cout << "WAAAAAAAAAAAAAAAA!" << std::endl;
+			}
 		}
 	}
 	checkCollisionWithEnemy = false;
@@ -179,25 +193,26 @@ bool Player::getCheckCollisionWithEnemy()
 	return checkCollisionWithEnemy;
 }
 
-int Player::playerDraw(sf::RenderWindow& window) {
+int Player::playerDraw(sf::RenderWindow &window)
+{
 
 	plySprite.setPosition(playerRect.left + 12, playerRect.top + 39);
-	playecCordFORView(playerRect.left, playerRect.top);//камера
+	playecCordFORView(playerRect.left, playerRect.top); // камера
 
 	rectShape.setPosition(playerRect.left, playerRect.top);
 	rectShape.setSize(sf::Vector2f(playerRect.width, playerRect.height));
 	rectShape.setFillColor(sf::Color::Transparent); // Прозрачный фон
-	rectShape.setOutlineThickness(2); // Толщина границы
-	rectShape.setOutlineColor(sf::Color::Red); // Цвет границы
-	if (checkCollisionWithEnemy) {
+	rectShape.setOutlineThickness(2);				// Толщина границы
+	rectShape.setOutlineColor(sf::Color::Red);		// Цвет границы
+	if (checkCollisionWithEnemy)
+	{
 		window.draw(rectAttacjShape);
 	}
 	window.draw(rectShape);
 	window.draw(plySprite);
 	window.setView(view);
 
-    std::cout << "PLAYERDRAW" << std::endl;
+	std::cout << "PLAYERDRAW" << std::endl;
 
 	return 0;
 }
-

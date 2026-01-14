@@ -40,16 +40,16 @@ void permissionToRespawnSecondEnemy(int checkNumbPlatform, int nambPlatform, int
 int main(int argc, char *argv[])
 {
     // jast this is need for normal start :D
-    /*std::filesystem::path exePath = std::filesystem::absolute(argv[0]);
+    std::filesystem::path exePath = std::filesystem::absolute(argv[0]);
     std::filesystem::path exeDir = exePath.parent_path();
 
     std::filesystem::current_path(exeDir);
 
     std::cout << "CWD fixed to: " << std::filesystem::current_path() << std::endl;
 
-    std::cout << "CWD: " << std::filesystem::current_path() << std::endl;*/
+    std::cout << "CWD: " << std::filesystem::current_path() << std::endl;
     // jast this is need for normal start  :D
-
+    std::cout << "START" << std::filesystem::current_path() << std::endl;
     enum Screen
     {
         TitleMain,

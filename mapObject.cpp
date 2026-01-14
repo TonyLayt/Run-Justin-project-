@@ -1,6 +1,6 @@
 #include "mapObject.h"
 
-mapObject::mapObject(std::vector<Object> &conteinerObjct, std::vector<Enemy>& enemy) : conteinerObjct(conteinerObjct), enemy(enemy)
+mapObject::mapObject(std::vector<Object> &conteinerObjct, std::vector<Enemy> &enemy) : conteinerObjct(conteinerObjct), enemy(enemy)
 {
 
     texture.loadFromFile("img/Tiles/spriteGround.png");
@@ -46,6 +46,8 @@ void mapObject::processingMap(Player &upAnimationSpeed, float &vailSpeedBG)
         std::cout << "XYYSYSYSYSYS_ " << seconds << std::endl;
     }
 
+    std::cout << "enemyy1 " << enemy[1].enemyRect.left << std::endl;
+
     for (int itemCount = 0; itemCount < conteinerObjct.size(); itemCount++)
     {
         if (upAnimationSpeed.getCheckGemeOverEvents())
@@ -58,13 +60,16 @@ void mapObject::processingMap(Player &upAnimationSpeed, float &vailSpeedBG)
                 randPointSpavn = rand() % (3 - 1 + 1) + 1;
                 numbPlatform = itemCount;
                 conteinerObjct[itemCount].rect.left = 1800; // 1500
+            }
 
-                if (conteinerObjct[itemCount].rect.left + conteinerObjct[itemCount].rect.width < 0) {
-                    enemy[0].reset(false);
-                    enemy[1].reset(false);
-                }
-             
-                
+            if (enemy[0].enemyRect.left < -90)
+            {
+                std::cout << "enemyy0 " << enemy[0].enemyRect.left << std::endl;
+                enemy[0].reset(false);
+            }
+            if (enemy[1].enemyRect.left < -90)
+            {
+                enemy[1].reset(false);
             }
         }
     }
